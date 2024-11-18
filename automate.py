@@ -4,7 +4,7 @@ import subprocess
 
 # Paths to configure
 repo_url = "https://github.com/07Snowman/Fs25Mods"
-repo_download_folder = os.path.join(os.getcwd(), "Fs25Mods")
+repo_download_folder = os.path.join(os.getcwd(), "Mods")
 mods_folder = os.path.expanduser(r"~\\Documents\\My Games\\FarmingSimulator25\\Mods")
 
 def clone_repo(repo_url, clone_folder):
