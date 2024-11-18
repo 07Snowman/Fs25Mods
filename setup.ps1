@@ -2,7 +2,8 @@
 $repoUrl = "https://github.com/07Snowman/Fs25Mods/archive/refs/heads/main.zip"
 $zipFile = "repo.zip"
 $extractPath = [System.IO.Path]::Combine($env:USERPROFILE, "Desktop", "Mods")
-$batFile = [System.IO.Path]::Combine($extractPath, "run.bat")
+$batFile = [System.IO.Path]::Combine($extractPath, "Fs25Mods-main", "run.bat")
+
 
 # Step 1: Download repository as a ZIP file
 Write-Host "[INFO] Downloading repository..."
