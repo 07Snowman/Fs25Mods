@@ -37,7 +37,7 @@ def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
             print(f"[DEBUG] Moved extracted folder to: {extract_folder}")
         else:
             print("[ERROR] Extraction failed or folder not found.")
-i
+
         os.remove(temp_zip_path)  # Clean up the zip file
         print(f"[DEBUG] Temporary zip file removed: {temp_zip_path}")
 
