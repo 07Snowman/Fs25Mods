@@ -12,3 +12,6 @@ To clone this repository and automatically move files to the Farming Simulator 2
     
     Bobs ya uncle 
 
+    No mods are mine
+    
+    Bare with me I have no idea what I'm doing, I'm learning as I go 
