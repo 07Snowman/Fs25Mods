@@ -8,4 +8,5 @@ To clone this repository and automatically move files to the Farming Simulator 2
    ```bash
    git clone https://github.com/07Snowman/Fs25Mods.git
    cd Fs25Mods
+   ./run.bat
 
