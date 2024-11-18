@@ -28,8 +28,11 @@ def move_files(source_folder, destination_folder):
         destination_path = os.path.join(destination_folder, filename)
 
         if os.path.isfile(source_path):
-            shutil.move(source_path, destination_path)
-            print(f"Moved: {source_path} -> {destination_path}")
+            if not os.path.exists(destination_path) or os.path.getmtime(source_path) > os.path.getmtime(destination_path):
+                shutil.move(source_path, destination_path)
+                print(f"Moved: {source_path} -> {destination_path}")
+            else:
+                print(f"Skipped (already exists and is up-to-date): {destination_path}")
         else:
             print(f"Skipping non-file: {source_path}")
 
