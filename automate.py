@@ -50,19 +50,21 @@ def move_zip_files(source_folder, destination_folder):
         os.makedirs(destination_folder)
         print(f"[DEBUG] Created destination folder: {destination_folder}")
 
-    for filename in os.listdir(source_folder):
-        source_path = os.path.join(source_folder, filename)
-        destination_path = os.path.join(destination_folder, filename)
+    for root, _, files in os.walk(source_folder):  # Walk through all subdirectories
+        for filename in files:
+            source_path = os.path.join(root, filename)
+            destination_path = os.path.join(destination_folder, filename)
 
-        print(f"[DEBUG] Checking file: {filename}")
-        if os.path.isfile(source_path) and filename.endswith(".zip"):
-            if not os.path.exists(destination_path) or os.path.getmtime(source_path) > os.path.getmtime(destination_path):
-                shutil.move(source_path, destination_path)
-                print(f"[DEBUG] Moved: {source_path} -> {destination_path}")
+            print(f"[DEBUG] Checking file: {filename}")
+            if filename.endswith(".zip"):
+                if not os.path.exists(destination_path) or os.path.getmtime(source_path) > os.path.getmtime(destination_path):
+                    shutil.move(source_path, destination_path)
+                    print(f"[DEBUG] Moved: {source_path} -> {destination_path}")
+                else:
+                    print(f"[DEBUG] Skipped (already exists and is up-to-date): {destination_path}")
             else:
-                print(f"[DEBUG] Skipped (already exists and is up-to-date): {destination_path}")
-        else:
-            print(f"[DEBUG] Skipping non-zip file: {source_path}")
+                print(f"[DEBUG] Skipping non-zip file: {source_path}")
+
 
 if __name__ == "__main__":
     print("[DEBUG] Starting script execution...")
