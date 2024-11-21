@@ -4,7 +4,7 @@
 To clone this repository and automatically move files to the Farming Simulator 25 mods folder:
 
 1. Ensure Python is installed on your system.
-   Join Discord channel to be notified of new mods.test
+   Join Discord channel to be notified of new mods.test test
    
    Run PowerShell
    
