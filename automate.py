@@ -1,10 +1,6 @@
-
-import os
-import requests
-
 import os
 import shutil
-import requests
+import subprocess
 import zipfile
 
 # Paths to configure
@@ -13,17 +9,16 @@ repo_download_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Mods")
 mods_folder = os.path.expanduser(r"~\Documents\My Games\FarmingSimulator25\Mods")
 temp_zip_path = os.path.join(os.getcwd(), "repo.zip")
 
+
 def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
     if os.path.exists(extract_folder):
         print(f"[DEBUG] Repository folder already exists: {extract_folder}")
     else:
         print(f"[DEBUG] Downloading repository from {repo_url} to {temp_zip_path}...")
         try:
-            response = requests.get(repo_url)
-            with open(temp_zip_path, 'wb') as f:
-                f.write(response.content)
+            subprocess.run(["curl", "-L", "-o", temp_zip_path, repo_url], check=True)
             print(f"[DEBUG] Download completed: {temp_zip_path}")
-        except requests.RequestException as e:
+        except subprocess.CalledProcessError as e:
             print(f"[ERROR] Failed to download repository: {e}")
             return
 
@@ -47,9 +42,8 @@ def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
         os.remove(temp_zip_path)  # Clean up the zip file
         print(f"[DEBUG] Temporary zip file removed: {temp_zip_path}")
 
+
 def move_zip_files(source_folder, destination_folder):
-    source_folder = source_folder.replace("/", "\\")
-    destination_folder = destination_folder.replace("/", "\\")
     if not os.path.exists(source_folder):
         print(f"[DEBUG] Source folder does not exist: {source_folder}")
         return
@@ -65,7 +59,8 @@ def move_zip_files(source_folder, destination_folder):
 
             print(f"[DEBUG] Checking file: {filename}")
             if filename.endswith(".zip"):
-                if not os.path.exists(destination_path) or os.path.getmtime(str(source_path)) > os.path.getmtime(str(destination_path)):
+                if not os.path.exists(destination_path) or os.path.getmtime(str(source_path)) > os.path.getmtime(
+                        str(destination_path)):
                     shutil.move(source_path, destination_path)
                     print(f"[DEBUG] Moved: {source_path} -> {destination_path}")
                 else:
@@ -73,9 +68,8 @@ def move_zip_files(source_folder, destination_folder):
             else:
                 print(f"[DEBUG] Skipping non-zip file: {source_path}")
 
+
 if __name__ == "__main__":
-    repo_download_folder = repo_download_folder.replace("/", "\\")
-    mods_folder = mods_folder.replace("/", "\\")
     print("[DEBUG] Starting script execution...")
     download_and_extract_repo(repo_url, temp_zip_path, repo_download_folder)
     move_zip_files(repo_download_folder, mods_folder)
