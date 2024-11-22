@@ -57,14 +57,13 @@ def move_zip_files(source_folder, destination_folder):
 
             print(f"[DEBUG] Checking file: {filename}")
             if filename.endswith(".zip"):
-                if not os.path.exists(destination_path) or os.path.getmtime(source_path) > os.path.getmtime(destination_path):
+                if not os.path.exists(destination_path) or os.path.getmtime(str(source_path)) > os.path.getmtime(str(destination_path)):
                     shutil.move(source_path, destination_path)
                     print(f"[DEBUG] Moved: {source_path} -> {destination_path}")
                 else:
                     print(f"[DEBUG] Skipped (already exists and is up-to-date): {destination_path}")
             else:
                 print(f"[DEBUG] Skipping non-zip file: {source_path}")
-
 
 if __name__ == "__main__":
     print("[DEBUG] Starting script execution...")
