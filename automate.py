@@ -23,7 +23,7 @@ def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
             with open(temp_zip_path, 'wb') as f:
                 f.write(response.content)
             print(f"[DEBUG] Download completed: {temp_zip_path}")
-        except subprocess.CalledProcessError as e:
+        except requests.RequestException as e:
             print(f"[ERROR] Failed to download repository: {e}")
             return
 
