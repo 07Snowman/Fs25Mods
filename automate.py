@@ -1,6 +1,10 @@
+
+import os
+import requests
+
 import os
 import shutil
-import subprocess
+import requests
 import zipfile
 
 # Paths to configure
@@ -15,7 +19,9 @@ def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
     else:
         print(f"[DEBUG] Downloading repository from {repo_url} to {temp_zip_path}...")
         try:
-            subprocess.run(["curl", "-L", "-o", temp_zip_path, repo_url], check=True)
+            response = requests.get(repo_url)
+            with open(temp_zip_path, 'wb') as f:
+                f.write(response.content)
             print(f"[DEBUG] Download completed: {temp_zip_path}")
         except subprocess.CalledProcessError as e:
             print(f"[ERROR] Failed to download repository: {e}")
@@ -42,6 +48,8 @@ def download_and_extract_repo(repo_url, temp_zip_path, extract_folder):
         print(f"[DEBUG] Temporary zip file removed: {temp_zip_path}")
 
 def move_zip_files(source_folder, destination_folder):
+    source_folder = source_folder.replace("/", "\\")
+    destination_folder = destination_folder.replace("/", "\\")
     if not os.path.exists(source_folder):
         print(f"[DEBUG] Source folder does not exist: {source_folder}")
         return
@@ -66,6 +74,8 @@ def move_zip_files(source_folder, destination_folder):
                 print(f"[DEBUG] Skipping non-zip file: {source_path}")
 
 if __name__ == "__main__":
+    repo_download_folder = repo_download_folder.replace("/", "\\")
+    mods_folder = mods_folder.replace("/", "\\")
     print("[DEBUG] Starting script execution...")
     download_and_extract_repo(repo_url, temp_zip_path, repo_download_folder)
     move_zip_files(repo_download_folder, mods_folder)
