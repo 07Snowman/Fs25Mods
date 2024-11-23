@@ -5,7 +5,7 @@ import zipfile
 
 # Paths to configure
 repo_url = "https://github.com/07Snowman/Fs25Mods/archive/refs/heads/main.zip"
-repo_download_folder = os.path.join(os.path.expanduser("~"), "Desktop", "Mods")
+repo_download_folder = os.path.join(os.path.expanduser("~"), "~\Documents\My Games\FarmingSimulator25\Mods")
 mods_folder = os.path.expanduser(r"~\Documents\My Games\FarmingSimulator25\Mods")
 temp_zip_path = os.path.join(os.getcwd(), "repo.zip")
 
